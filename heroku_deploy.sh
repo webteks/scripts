@@ -2,7 +2,11 @@
 
 # Constructs url from presently checked out source code
 
-git archive --format=tar HEAD | gzip > deploy.tar.gz
+# Checks root directory for deploy.tar.gz, and if it doesn't exist then archive current repo.
+if [ ! -f ./deploy.tar.gz ]; then
+    echo "File deploy.tar.gz not provided to script, archiving repo into file"
+    git archive --format=tar HEAD | gzip > deploy.tar.gz
+fi
 
 # Requires 4 environment variables
 # BITBUCKET_COMMIT = sha of commit @ head
